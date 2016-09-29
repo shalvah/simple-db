@@ -3,10 +3,11 @@ package me.shalvah.dbhelper;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 
-
+/**
+ * Models a table in the database
+ */
 public class Table
 	{
 		/**
@@ -22,7 +23,8 @@ public class Table
 		/**
 		 * Create a new table and add columns to it
 		 * Automatically adds "_id" column if it was not included
-		 * If you do not want this to happen, pass a third parameter, false
+		 * If you do not want this to happen, use the other constructor and pass a third parameter,
+		 * false
 		 *
 		 * @param tableName Name of the table
 		 * @param cols array of Columns to be created in the table
@@ -50,7 +52,7 @@ public class Table
 
 		/**
 		 * Create a new table and add columns to it
-		 * Adds "_id" column if the addID is true
+		 * Adds "_id" column if addID is true
 		 *
 		 * @param tableName Name of the table
 		 * @param cols      array of Columns to be created in the table

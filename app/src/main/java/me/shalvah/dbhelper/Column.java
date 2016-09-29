@@ -4,7 +4,7 @@ package me.shalvah.dbhelper;
 import java.util.Comparator;
 
 /**
- * This class models a column in a table in the database
+ * Models a column in a table in the database
  */
 public class Column
 	{
@@ -230,7 +230,7 @@ public class Column
 		}
 
 		////////////////////////////////////////////////////////
-		
+
 		/**
 		 * Generates SQLite CREATE statement for the column.
 		 * Only to be called by its containing table

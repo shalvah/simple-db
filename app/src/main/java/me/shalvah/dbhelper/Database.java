@@ -9,28 +9,25 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 /**
- * This class abstracts the dataase concept.
+ * Models the dataase concept while extending the SQLiteOpenHelper
  *
  * @author Shalvah Adebayo <shalvah@shalvah.me>
  */
 public class Database extends SQLiteOpenHelper
 	{
 		/**
-		 * The name of the database
-		 */
-		private String name;
-
-		/**
-		 * The tables in the database
-		 */
-		private LinkedHashMap<String, Table> tables;
-
-		/**
 		 * The dataase version.
 		 * Automatically incremented when a new table is added or an old one dropped
 		 */
 		private static int version = 1;
-
+		/**
+		 * The name of the database
+		 */
+		private String name;
+		/**
+		 * The tables in the database
+		 */
+		private LinkedHashMap<String, Table> tables;
 		/**
 		 * List of drop statements
 		 */

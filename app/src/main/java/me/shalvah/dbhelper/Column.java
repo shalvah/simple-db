@@ -36,7 +36,8 @@ public class Column
 		private boolean unique;
 
 		/**
-		 * If the column value is allowed to be null.By default, this is TRUE
+		 * If the column value is allowed to be null.
+		 * By default, this is TRUE
 		 */
 		private boolean nullable=true;
 
@@ -58,7 +59,7 @@ public class Column
 		private String referencesColumn;
 
 		/**
-		 * The table to which this column belongs
+		 * The name of the table to which this column belongs
 		 */
 		private String table;
 
@@ -71,10 +72,37 @@ public class Column
 		 */
 		public Column(String name, String type)
 		{
-			this.name = name;
-			this.dataType = type;
+			this.name = name.toLowerCase();
+			this.dataType = type.toUpperCase();
 		}
 
+		////////////////////////////////////////////////////////
+		//
+		//----------------------Setters----------------------//
+		//
+		///////////////////////////////////////////////////////
+
+		/**
+		 * Sets the name of the column
+		 *
+		 * @return the column
+		 */
+		public Column name(String newName)
+		{
+			this.name = newName;
+			return this;
+		}
+
+		/**
+		 * Sets the data type of the column
+		 *
+		 * @return the column
+		 */
+		public Column type(String newType)
+		{
+			this.dataType = newType;
+			return this;
+		}
 
 		/**
 		 * Sets a column as a primary key
@@ -84,6 +112,28 @@ public class Column
 		public Column primaryKey()
 		{
 			this.primaryKey = true;
+			return this;
+		}
+
+		/**
+		 * Sets a column value to auto increment
+		 *
+		 * @return the column
+		 */
+		public Column autoIncrement()
+		{
+			this.autoIncrement = true;
+			return this;
+		}
+
+		/**
+		 * Sets a column value as unique
+		 *
+		 * @return the column
+		 */
+		public Column unique()
+		{
+			this.unique = true;
 			return this;
 		}
 
@@ -99,29 +149,6 @@ public class Column
 		}
 
 		/**
-		 * Sets a column to auto increment
-		 *
-		 * @return the column
-		 */
-		public Column autoIncrement()
-		{
-			this.autoIncrement = true;
-			return this;
-		}
-
-
-		/**
-		 * Sets a column value as unique
-		 *
-		 * @return the column
-		 */
-		public Column unique()
-		{
-			this.unique = true;
-			return this;
-		}
-
-		/**
 		 * Sets a column as non-null
 		 *
 		 * @return the column
@@ -132,6 +159,78 @@ public class Column
 			return this;
 		}
 
+		/**
+		 * Sets the table to which the column belongs
+		 *
+		 * @return the column
+		 */
+		public Column belongsTo(String tableName)
+		{
+			this.table = tableName;
+			return this;
+		}
+
+		/**
+		 * Sets the column and table which the column references (if column is a foreign key)
+		 *
+		 * @return the column
+		 */
+		public Column references(String tableName, String columnName)
+		{
+			this.referencesTable = tableName;
+			this.referencesColumn = columnName;
+			return this;
+		}
+
+		////////////////////////////////////////////////////////
+		//
+		//----------------------Getters----------------------//
+		//
+		///////////////////////////////////////////////////////
+
+		/**
+		 * Gets the name of the column
+		 *
+		 * @return the name of the column
+		 */
+		public String name()
+		{
+			return name;
+		}
+
+		/**
+		 * Gets the type of the column
+		 *
+		 * @return the data type of the column
+		 */
+		public String type()
+		{
+			return this.dataType;
+		}
+
+		/**
+		 * Gets the table to which the column belongs
+		 *
+		 * @return the name of the table of the column
+		 */
+		public String belongsTo()
+		{
+			return this.table;
+		}
+
+		/**
+		 * Gets the table and column which the column refernces (if the column is a foreign key)
+		 *
+		 * @return string array with first elemsnt as the name of the referenced table and second the
+		 * name* of the referenced column
+		 */
+		public String[] references()
+		{
+			return new String[]{this.referencesTable, this.referencesColumn};
+		}
+
+		////////////////////////////////////////////////////////
+		
 		/**
 		 * Generates SQLite CREATE statement for the column.
 		 * Only to be called by its containing table
@@ -154,66 +253,6 @@ public class Column
 			return createStatement;
 		}
 
-		/**Get the name of the column
-		 *
-		 * @return the name of the column
-		 */
-		public String name()
-		{
-			return name;
-		}
-
-		/**Set the name of the column
-		 *
-		 * @return the column
-		 */
-		public Column name(String newName)
-		{
-			this.name=newName;
-			return this;
-		}
-
-		/**
-		 * Set the data type of the column
-		 *
-		 * @return the column
-		 */
-		public Column type(String newType)
-		{
-			this.dataType = newType;
-			return this;
-		}
-
-		/**
-		 * Get the type of the column
-		 *
-		 * @return the data type of the column
-		 */
-		public String type()
-		{
-			return this.dataType;
-		}
-
-		/**
-		 * Get the table to which the column belongs
-		 *
-		 * @return the name of the table of the column
-		 */
-		public String belongsTo()
-		{
-			return this.table;
-		}
-
-		/**
-		 * Set the table to which the column belongs
-		 *
-		 * @return the column
-		 */
-		public Column belongsTo(String tableName)
-		{
-			this.table = tableName;
-			return this;
-		}
 
 		/**
 		 * Comparison of two columns
@@ -221,7 +260,8 @@ public class Column
 		static class ColumnComparator implements Comparator<Column>
 			{
 
-				/**Compare two columns by their tables and names
+				/**
+				 * Compare two columns by their tables and names
 				 *
 				 * @param lhs first column
 				 * @param rhs second column

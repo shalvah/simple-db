@@ -4,19 +4,22 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-    <ListView android:layout_width="match_parent"
+    <ListView android:id="@android:id/list"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_alignParentTop="true"
-    android:id="@android:id/list"/>
+              android:layout_alignParentTop="true"/>
 
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="wrap_content"
+                  android:layout_alignParentBottom="true"
                   android:orientation="horizontal">
         <EditText android:id="@+id/inputCourseET"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"/>
-        <Button android:layout_width="wrap_content"
+                  android:layout_width="0dp"
+                  android:layout_height="match_parent"
+                  android:layout_weight="3"/>
+        <Button android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:onClick="addCourse"
                 android:text="ADD"/>
     </LinearLayout>

@@ -29,18 +29,13 @@ public class DataProvider extends ContentProvider
 		public static final String BASE_PATH_COURSES = "courses";
 		public static final String URL_COURSES = "content://" + PROVIDER_NAME + "/" + BASE_PATH_COURSES;
 		public static final Uri CONTENT_URI_COURSES = Uri.parse(URL_COURSES);
-
-		Table students;
-		Table courses;
-
 		//for UriMatcher
 		public static final int STUDENTS = 1;
 		public static final int STUDENT_ID = 2;
 		public static final int COURSES = 10;
 		public static final int COURSE_ID = 20;
-
-
 		private static final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
+		public static Database db;
 		private static SQLiteDatabase sqldb;
 
 		static
@@ -51,8 +46,8 @@ public class DataProvider extends ContentProvider
 			matcher.addURI(PROVIDER_NAME, BASE_PATH_COURSES + "/#", COURSE_ID);
 		}
 
-
-		private Database db;
+		Table students;
+		Table courses;
 
 		public DataProvider()
 		{
@@ -110,7 +105,7 @@ public class DataProvider extends ContentProvider
 			switch (uriType)
 			{
 				case STUDENTS:
-					qBuild.setTables(db.get("students").name());
+					qBuild.setTables(db.table("students").name());
 					if (sortOrder == null || sortOrder.equals(""))
 					{
 						//will work on this

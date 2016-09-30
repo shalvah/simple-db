@@ -124,7 +124,7 @@ public class Database extends SQLiteOpenHelper
 			onCreate(db);
 		}
 
-		public Table get(String tableName)
+		public Table table(String tableName)
 		{
 			if (!this.tables.containsKey(tableName))
 				throw new IllegalArgumentException("Table doesn't exist") ;

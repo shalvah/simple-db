@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 import me.shalvah.dbhelper.Column;
-import me.shalvah.dbhelper.Database;
+import me.shalvah.dbhelper.Schema;
 import me.shalvah.dbhelper.Table;
 
 
@@ -35,7 +35,7 @@ public class DataProvider extends ContentProvider
 		public static final int COURSES = 10;
 		public static final int COURSE_ID = 20;
 		private static final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
-		public static Database db;
+		public static Schema db;
 		private static SQLiteDatabase sqldb;
 
 		static
@@ -76,7 +76,7 @@ public class DataProvider extends ContentProvider
 			courses.add(courseUnits);
 
 			Table[] tables=new Table[]{students, courses};
-			db=new Database(getContext(), "dbtest", tables);
+			db = new Schema(getContext(), "dbtest", tables);
 		}
 
 		@Override

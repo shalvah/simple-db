@@ -9,29 +9,30 @@ import java.util.Comparator;
 public class Column
 	{
 		/**
-		 * The name of thw column.
+		 * The name of the column.
 		 * By convention, this is automatically converted to lowercase
 		 */
 		private String name;
 
 		/**
-		 * The data type of thw column.
+		 * The data type of the column.
 		 * By convention, this is automatically converted to uppercase
 		 */
 		private String dataType;
 
 		/**
-		 * If the column is a primary key.By default, this is FALSE
+		 * If the column is a primary key. By default, this is FALSE
 		 */
 		private boolean primaryKey;
 
 		/**
-		 * If the column value is automatically incremented.By default, this is FALSE
+		 * If the column value is automatically incremented. By default, this is FALSE
 		 */
 		private boolean autoIncrement;
 
 		/**
-		 * If the column value is to be unique.By default, this is FALSE
+		 * If the column value is to be unique.
+		 * By default, this is FALSE
 		 */
 		private boolean unique;
 
@@ -237,7 +238,7 @@ public class Column
 		 *
 		 * @return the create statement
 		 */
-		String create()
+		public String create()
 		{
 			String nullValue = (this.nullable) ? ("NULL") : ("NOT NULL");
 			String pkValue= (this.primaryKey) ? ("PRIMARY KEY") : ("");

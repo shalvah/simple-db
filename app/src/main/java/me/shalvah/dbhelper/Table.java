@@ -29,7 +29,7 @@ public class Table
 		 * @param tableName Name of the table
 		 * @param cols array of Columns to be created in the table
 		 */
-		public Table(String tableName, Column[] cols)
+		public Table(String tableName, Column... cols)
 		{
 			//set table name, initialize columns
 			this.name=tableName;
@@ -48,46 +48,6 @@ public class Table
 
 			//then add all other columns
 			Collections.addAll(this.columns, cols);
-		}
-
-		/**
-		 * Create a new table and add columns to it
-		 * Adds "_id" column if addID is true
-		 *
-		 * @param tableName Name of the table
-		 * @param cols      array of Columns to be created in the table
-		 * @param addID Whether or not to add an "_id" column
-		 */
-		public Table(String tableName, Column[] cols, boolean addID)
-		{
-			this.name = tableName;
-			columns = new ArrayList<Column>();
-			if (addID)
-			{
-				Column idColumn = new Column("_id", "int")
-						.primaryKey()
-						.autoIncrement()
-						.notNull();
-				columns.add(idColumn);
-			}
-			Collections.addAll(this.columns, cols);
-
-			for (Column c :
-					columns)
-			{
-				c.belongsTo(this.name);
-			}
-		}
-
-		/**
-		 * Create a new table with no columns
-		 *
-		 * @param tableName Name of the table
-		 */
-		public Table(String tableName)
-		{
-			this.name = tableName;
-			columns = new ArrayList<Column>();
 		}
 
 		/**

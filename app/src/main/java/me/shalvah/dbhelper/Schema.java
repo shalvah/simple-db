@@ -9,14 +9,14 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 /**
- * Models the dataase concept while extending the SQLiteOpenHelper
+ * Models the database concept while extending the SQLiteOpenHelper
  *
  * @author Shalvah Adebayo <shalvah@shalvah.me>
  */
-public class Database extends SQLiteOpenHelper
+public class Schema extends SQLiteOpenHelper
 	{
 		/**
-		 * The dataase version.
+		 * The database version.
 		 * Automatically incremented when a new table is added or an old one dropped
 		 */
 		private static int version = 1;
@@ -40,7 +40,7 @@ public class Database extends SQLiteOpenHelper
 		 * @param dbName  The database name
 		 * @param dbTables array of tales to be added
 		 */
-		public Database(Context context, String dbName, Table[] dbTables )
+		public Schema(Context context, String dbName, Table... dbTables)
 		{
 			super(context, dbName, null, version);
 			this.name=dbName;
@@ -55,29 +55,15 @@ public class Database extends SQLiteOpenHelper
 		}
 
 		/**
-		 * Create a new database without adding any tables
-		 *
-		 * @param context The application context
-		 * @param dbName The database name
-		 */
-		public Database(Context context, String dbName)
-		{
-			super(context, dbName, null, version);
-			this.name = dbName;
-			this.tables = new LinkedHashMap<String, Table>();
-			dropStatements = new ArrayList<>();
-		}
-
-		/**
 		 * Add a new table to the database
 		 *
 		 * @param dbTable The table object to be added
 		 */
-		public Database add(Table dbTable)
+		public Schema add(Table dbTable)
 		{
 			this.tables.put(dbTable.name(), dbTable);
 			this.dropStatements.add(dbTable.drop());
-			Database.version++;
+			Schema.version++;
 			return this;
 		}
 
@@ -86,10 +72,10 @@ public class Database extends SQLiteOpenHelper
 		 *
 		 * @param tableName The name of the table to be removed
 		 */
-		public Database drop(String tableName)
+		public Schema drop(String tableName)
 		{
 			this.tables.remove(tableName);
-			Database.version++;
+			Schema.version++;
 			return this;
 		}
 
@@ -101,8 +87,7 @@ public class Database extends SQLiteOpenHelper
 		 */
 		public SQLiteDatabase create()
 		{
-			SQLiteDatabase sqldb=this.getWritableDatabase();
-			return sqldb;
+			return this.getWritableDatabase();
 		}
 
 		@Override

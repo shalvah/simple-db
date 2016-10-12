@@ -49,7 +49,7 @@ public class Schema extends SQLiteOpenHelper
 			for (Table t :
 					dbTables)
 			{
-				this.tables.put(t.name(), t);
+				this.tables.put(t.toString(), t);
 				this.dropStatements.add(t.drop());
 			}
 		}
@@ -61,7 +61,7 @@ public class Schema extends SQLiteOpenHelper
 		 */
 		public Schema add(Table dbTable)
 		{
-			this.tables.put(dbTable.name(), dbTable);
+			this.tables.put(dbTable + "", dbTable);
 			this.dropStatements.add(dbTable.drop());
 			Schema.version++;
 			return this;
@@ -72,7 +72,7 @@ public class Schema extends SQLiteOpenHelper
 		 *
 		 * @param tableName The name of the table to be removed
 		 */
-		public Schema drop(String tableName)
+		public Schema remove(String tableName)
 		{
 			this.tables.remove(tableName);
 			Schema.version++;

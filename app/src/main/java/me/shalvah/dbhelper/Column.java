@@ -1,8 +1,6 @@
 package me.shalvah.dbhelper;
 
 
-import java.util.Comparator;
-
 /**
  * Models a column in a table in the database
  */
@@ -84,28 +82,6 @@ public class Column
 		///////////////////////////////////////////////////////
 
 		/**
-		 * Sets the name of the column
-		 *
-		 * @return the column
-		 */
-		public Column name(String newName)
-		{
-			this.name = newName;
-			return this;
-		}
-
-		/**
-		 * Sets the data type of the column
-		 *
-		 * @return the column
-		 */
-		public Column type(String newType)
-		{
-			this.dataType = newType;
-			return this;
-		}
-
-		/**
 		 * Sets a column as a primary key
 		 *
 		 * @return the column
@@ -113,22 +89,13 @@ public class Column
 		public Column primaryKey()
 		{
 			this.primaryKey = true;
-			return this;
-		}
-
-		/**
-		 * Sets a column value to auto increment
-		 *
-		 * @return the column
-		 */
-		public Column autoIncrement()
-		{
+			this.nullable = false;
 			this.autoIncrement = true;
 			return this;
 		}
 
 		/**
-		 * Sets a column value as unique
+		 * Sets a column value as a unique index
 		 *
 		 * @return the column
 		 */
@@ -140,12 +107,15 @@ public class Column
 
 		/**
 		 * Sets a column as a foreign key
+		 * Also sets the column and table which the column references (if column is a foreign key)
 		 *
 		 * @return the column
 		 */
-		public Column foreignKey()
+		public Column foreignKey(String referencesTable, String referencesColumn)
 		{
 			this.foreignKey = true;
+			this.referencesTable = referencesTable;
+			this.referencesColumn = referencesColumn;
 			return this;
 		}
 
@@ -168,18 +138,6 @@ public class Column
 		public Column belongsTo(String tableName)
 		{
 			this.table = tableName;
-			return this;
-		}
-
-		/**
-		 * Sets the column and table which the column references (if column is a foreign key)
-		 *
-		 * @return the column
-		 */
-		public Column references(String tableName, String columnName)
-		{
-			this.referencesTable = tableName;
-			this.referencesColumn = columnName;
 			return this;
 		}
 
@@ -254,29 +212,4 @@ public class Column
 			return createStatement;
 		}
 
-
-		/**
-		 * Comparison of two columns
-		 */
-		static class ColumnComparator implements Comparator<Column>
-			{
-
-				/**
-				 * Compare two columns by their tables and names
-				 *
-				 * @param lhs first column
-				 * @param rhs second column
-				 * @return
-				 */
-				@Override
-				public int compare(Column lhs, Column rhs)
-				{
-					if (lhs.belongsTo().equalsIgnoreCase(rhs.belongsTo()))
-					{
-						return lhs.name().compareToIgnoreCase(rhs.name());
-					}
-					throw new UnsupportedOperationException("Can't compare the two columns; they are in " +
-							"different tables");
-				}
-			}
 	}

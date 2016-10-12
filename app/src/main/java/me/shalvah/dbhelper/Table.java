@@ -1,7 +1,6 @@
 package me.shalvah.dbhelper;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 
@@ -23,30 +22,36 @@ public class Table
 		/**
 		 * Create a new table and add columns to it
 		 * Automatically adds "_id" column if it was not included
-		 * If you do not want this to happen, use the other constructor and pass a third parameter,
-		 * false
 		 *
 		 * @param tableName Name of the table
-		 * @param cols array of Columns to be created in the table
+		 * @param cols      array of Columns to be created in the table
 		 */
 		public Table(String tableName, Column... cols)
 		{
 			//set table name, initialize columns
-			this.name=tableName;
-			columns=new ArrayList<Column>();
+			this.name = tableName;
+			columns = new ArrayList<Column>();
+
+			boolean addId = true;
+			for (Column c :
+					cols)
+			{
+				if (c.toString().equalsIgnoreCase("_id") || c.toString().equalsIgnoreCase("id"))
+				{
+					addId = false;
+					break;
+				}
+			}
 
 			//if "_id" column doesn't exist, create it
-			Column idColumn = new Column("_id", "int")
-					.primaryKey()
-					.autoIncrement()
-					.notNull();
-			Arrays.sort(cols, new Column.ColumnComparator());
-			if (Arrays.binarySearch(cols, idColumn, new Column.ColumnComparator()) < 0)
+			if (addId)
 			{
+				Column idColumn = new Column("_id", "int")
+						.primaryKey();
 				columns.add(idColumn);
 			}
 
-			//then add all other columns
+			//add all other columns
 			Collections.addAll(this.columns, cols);
 		}
 
@@ -58,7 +63,7 @@ public class Table
 		 */
 		String create()
 		{
-			String colsCreateStmnt= "";
+			String colsCreateStmnt = "";
 			for (Iterator<Column> iterator = columns.iterator(); iterator.hasNext(); )
 			{
 				Column column = iterator.next();
@@ -69,7 +74,7 @@ public class Table
 				}
 			}
 
-			String createStatement="CREATE TABLE "
+			String createStatement = "CREATE TABLE "
 					+ this.name + " ("
 					+ colsCreateStmnt + ");";
 			return createStatement;
@@ -107,7 +112,8 @@ public class Table
 		 *
 		 * @return the name of the table
 		 */
-		public String name()
+		@Override
+		public String toString()
 		{
 			return name;
 		}
@@ -120,19 +126,22 @@ public class Table
 				if (c.name().equalsIgnoreCase("_id"))
 				{
 					return c.name();
+				} else if (c.name().equalsIgnoreCase("id"))
+				{
+					return c.name();
 				}
 			}
-			throw new IllegalArgumentException("No _id column in table");
+			throw new IllegalArgumentException("No id column");
 		}
 
-		public String[] getAllColumns()
+		/*public String[] getAllColumns()
 		{
-			ArrayList<String> names=new ArrayList<String>();
+			ArrayList<String> names = new ArrayList<String>();
 			for (Column col :
 					this.columns)
 			{
 				names.add(col.name());
 			}
-			return (String[]) names.toArray();
-		}
+			return String[](names.toArray());
+		}*/
 	}

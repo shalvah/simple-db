@@ -49,11 +49,11 @@ public class DataProvider extends ContentProvider
 		Table students;
 		Table courses;
 
-		public DataProvider()
+		public void init()
 		{
 			//create columns
 			Column studentName= new Column("name", "text");
-			Column studentAge=new Column("age", "int");
+			Column studentAge = new Column("age", "integer");
 
 			//place columns in array so we can easily add them
 			Column[] studentColumns=new Column[]{studentName, studentAge};
@@ -63,7 +63,7 @@ public class DataProvider extends ContentProvider
 
 			Column courseTitle = new Column("title", "text");
 			Column courseCode = new Column("code", "text");
-			Column courseUnits = new Column("units", "int");
+			Column courseUnits = new Column("units", "integer");
 
 			//you can set additional properties
 			Column courseDesc = new Column("description", "text")
@@ -83,6 +83,7 @@ public class DataProvider extends ContentProvider
 		public boolean onCreate()
 		{
 			//all columns and tables must be created before this is run!
+			init();
 			sqldb=db.create();
 			return (sqldb!=null);
 		}

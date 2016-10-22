@@ -1,6 +1,7 @@
 package me.shalvah.dbtest;
 
 import android.app.LoaderManager;
+import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
@@ -30,25 +31,16 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_course_list);
 
-			setupActionBar();
-			//populate the list
-			lv = (ListView) findViewById(android.R.id.list);
-			fillData();
-		}
-
-		private void setupActionBar()
-		{
 			Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 			setSupportActionBar(toolbar);
-			assert toolbar != null;
-			toolbar.setTitle(getTitle());
 
-			// Show the Up button in the action bar.
 			ActionBar actionBar = getSupportActionBar();
 			if (actionBar != null)
 			{
 				actionBar.setDisplayHomeAsUpEnabled(true);
 			}
+			lv = (ListView) findViewById(android.R.id.list);
+			fillData();
 		}
 
 		private void fillData()
@@ -117,9 +109,36 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 			return true;
 		}
 
-		public void addCourse(View view)
+		public void add(View view)
 		{
-			EditText editText = (EditText) findViewById(R.id.inputCourseET);
-			String input = editText.getText().toString();
+			String text = ((EditText) findViewById(R.id.inputCourseET)).getText().toString();
+			String[] data = text.split(",");
+			ContentValues values = new ContentValues();
+			try
+			{
+				values.put("title", data[0]);
+				values.put("code", data[1]);
+				values.put("units", data[2]);
+				values.put("description", data[3]);
+
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			getContentResolver().insert(DataProvider.CONTENT_URI_COURSES, values);
+			((EditText) findViewById(R.id.inputCourseET)).setText("");
+		}
+
+		public void clear(View view)
+		{
+			String text = ((EditText) findViewById(R.id.inputCourseET)).getText().toString();
+			if (text.equalsIgnoreCase(""))
+			{
+				getContentResolver().delete(DataProvider.CONTENT_URI_COURSES, null, null);
+			} else
+			{
+				getContentResolver().delete(DataProvider.CONTENT_URI_COURSES, "id", new
+						String[]{text});
+			}
 		}
 	}

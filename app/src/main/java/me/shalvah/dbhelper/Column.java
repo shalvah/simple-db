@@ -203,6 +203,7 @@ public class Column
 			String aiValue= (this.autoIncrement) ? ("AUTOINCREMENT") : ("");
 			String uniqueValue=(this.unique) ? ("UNIQUE") : ("");
 
+
 			String createStatement = this.name + " "
 					+ this.dataType + " "
 					+ nullValue + " "

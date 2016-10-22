@@ -46,7 +46,7 @@ public class Table
 			//if "_id" column doesn't exist, create it
 			if (addId)
 			{
-				Column idColumn = new Column("_id", "int")
+				Column idColumn = new Column("_id", "integer")
 						.primaryKey();
 				columns.add(idColumn);
 			}
@@ -112,8 +112,7 @@ public class Table
 		 *
 		 * @return the name of the table
 		 */
-		@Override
-		public String toString()
+		public String name()
 		{
 			return name;
 		}
@@ -134,7 +133,7 @@ public class Table
 			throw new IllegalArgumentException("No id column");
 		}
 
-		/*public String[] getAllColumns()
+		public String[] getAllColumns()
 		{
 			ArrayList<String> names = new ArrayList<String>();
 			for (Column col :
@@ -142,6 +141,7 @@ public class Table
 			{
 				names.add(col.name());
 			}
-			return String[](names.toArray());
-		}*/
+
+			return names.toArray(new String[0]);
+		}
 	}

@@ -49,7 +49,7 @@ public class Schema extends SQLiteOpenHelper
 			for (Table t :
 					dbTables)
 			{
-				this.tables.put(t.toString(), t);
+				this.tables.put(t.name(), t);
 				this.dropStatements.add(t.drop());
 			}
 		}
@@ -61,7 +61,7 @@ public class Schema extends SQLiteOpenHelper
 		 */
 		public Schema add(Table dbTable)
 		{
-			this.tables.put(dbTable + "", dbTable);
+			this.tables.put(dbTable.name(), dbTable);
 			this.dropStatements.add(dbTable.drop());
 			Schema.version++;
 			return this;

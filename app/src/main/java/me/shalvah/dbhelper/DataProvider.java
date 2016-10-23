@@ -151,11 +151,11 @@ public abstract class DataProvider extends ContentProvider
 						id = uri.getLastPathSegment();
 						if (TextUtils.isEmpty(selection))
 						{
-							rowsDeleted = sqldb.delete(s, "_id " + "="
+							rowsDeleted = sqldb.delete(s.replace("_ID", ""), "_id " + "="
 									+ id, null);
 						} else
 						{
-							rowsDeleted = sqldb.delete(s, "_id " + "="
+							rowsDeleted = sqldb.delete(s.replace("_ID", ""), "_id " + "="
 									+ id + " and " + selection, null);
 						}
 					} else
@@ -190,10 +190,10 @@ public abstract class DataProvider extends ContentProvider
 						id = uri.getLastPathSegment();
 						if (TextUtils.isEmpty(selection))
 						{
-							rowsUpdated = sqldb.update(s, values, "_id" + "=" + id, null);
+							rowsUpdated = sqldb.update(s.replace("_ID", ""), values, "_id" + "=" + id, null);
 						} else
 						{
-							rowsUpdated = sqldb.update(s, values, "_id" + "=" + id + " and " + selection,
+							rowsUpdated = sqldb.update(s.replace("_ID", ""), values, "_id" + "=" + id + " and " + selection,
 									selectionArgs);
 						}
 					} else

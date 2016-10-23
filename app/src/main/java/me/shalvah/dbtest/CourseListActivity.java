@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+
 
 
 public class CourseListActivity extends AppCompatActivity implements LoaderManager
@@ -48,7 +50,7 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 			getLoaderManager().initLoader(0, null, this);
 
 			sca = new SimpleCursorAdapter(this, R.layout.course_list_item, null,
-					DataProvider.db.table("courses").getAllColumns(), new int[]
+					TestDataProvider.db.table(TestDataProvider.TABLE_COURSES).getAllColumns(), new int[]
 					{R.id._id, R.id.code, R.id.title, R.id.description}, 0);
 			lv.setAdapter(sca);
 
@@ -61,17 +63,10 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 			switch (id)
 			{
 				case android.R.id.home:
-					// This ID represents the Home or Up button. In the case of this
-					// activity, the Up button is shown. Use NavUtils to allow users
-					// to navigate up one level in the application structure. For
-					// more details, see the Navigation pattern on Android Design:
-					//
-					// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-					//
 					NavUtils.navigateUpFromSameTask(this);
 					return true;
 				case R.id.clear_all:
-					getContentResolver().delete(DataProvider.CONTENT_URI_COURSES, null, null);
+					getContentResolver().delete(TestDataProvider.contentUri("courses"), null, null);
 					return true;
 
 			}
@@ -83,9 +78,9 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 		public Loader<Cursor> onCreateLoader(int id, Bundle args)
 		{
 			String[] projection =
-					DataProvider.db.table("courses").getAllColumns();
+					TestDataProvider.db.table("courses").getAllColumns();
 
-			return new CursorLoader(this, DataProvider.CONTENT_URI_COURSES, projection, null, null,
+			return new CursorLoader(this, TestDataProvider.contentUri("courses"), projection, null, null,
 					null);
 		}
 
@@ -125,7 +120,7 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 			{
 				e.printStackTrace();
 			}
-			getContentResolver().insert(DataProvider.CONTENT_URI_COURSES, values);
+			getContentResolver().insert(TestDataProvider.contentUri("courses"), values);
 			((EditText) findViewById(R.id.inputCourseET)).setText("");
 		}
 
@@ -134,11 +129,14 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 			String text = ((EditText) findViewById(R.id.inputCourseET)).getText().toString();
 			if (text.equalsIgnoreCase(""))
 			{
-				getContentResolver().delete(DataProvider.CONTENT_URI_COURSES, null, null);
+				getContentResolver().delete(TestDataProvider.contentUri("courses"), null, null);
 			} else
 			{
-				getContentResolver().delete(DataProvider.CONTENT_URI_COURSES, "id", new
-						String[]{text});
+				getContentResolver().delete(
+						Uri.withAppendedPath(TestDataProvider.contentUri
+								(TestDataProvider.TABLE_COURSES), "/" + text),
+						null,
+						null);
 			}
 		}
 	}

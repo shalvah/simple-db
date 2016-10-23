@@ -20,7 +20,12 @@
         <Button android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:onClick="addCourse"
+                android:onClick="add"
                 android:text="ADD"/>
+        <Button android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="clear"
+                android:text="CLEAR"/>
     </LinearLayout>
 </RelativeLayout>

@@ -74,7 +74,7 @@ public class Table
 					foreignKeys.add(column.foreignKeyStatement());
 				}
 				if (iterator.hasNext())
-				{\
+				{
 					colsCreateStmnt += ", ";
 				}
 			}
@@ -85,16 +85,15 @@ public class Table
 				String stmnt = iterator.next();
 				fkStatement += stmnt;
 				if (iterator.hasNext())
-				{\
+				{
 					fkStatement += ", ";
 				}
 			}
 
-			String createStatement = "CREATE TABLE "
-					+ this.name + " ("
+			return "CREATE TABLE "
+					+ name + " ("
 					+ colsCreateStmnt + " "
 					+ fkStatement + ");";
-			return createStatement;
 		}
 
 		/**
@@ -105,7 +104,7 @@ public class Table
 		 */
 		String drop()
 		{
-			return "DROP TABLE IF EXISTS " + this.name + ";";
+			return "DROP TABLE IF EXISTS " + name + ";";
 		}
 
 		/**

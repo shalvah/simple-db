@@ -43,8 +43,8 @@ public class Schema extends SQLiteOpenHelper
 		public Schema(Context context, String dbName, Table... dbTables)
 		{
 			super(context, dbName, null, version);
-			this.name=dbName;
-			this.tables = new LinkedHashMap<String, Table>();
+			name = dbName;
+			tables = new LinkedHashMap<String, Table>();
 			dropStatements = new ArrayList<>();
 			for (Table t :
 					dbTables)

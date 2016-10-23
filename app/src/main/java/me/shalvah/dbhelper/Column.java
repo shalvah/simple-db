@@ -81,6 +81,37 @@ public class Column
 		//
 		///////////////////////////////////////////////////////
 
+		public static Column Integer(String name)
+		{
+			return new Column(name, "INTEGER");
+		}
+
+		public static Column Text(String name)
+		{
+			return new Column(name, "TEXT");
+		}
+
+		public static Column Blob(String name)
+		{
+			return new Column(name, "BLOB");
+		}
+
+		public static Column Real(String name)
+		{
+			return new Column(name, "REAL");
+		}
+
+		public static Column Null(String name)
+		{
+			return new Column(name, "NULL");
+		}
+
+		////////////////////////////////////////////////////////
+		//
+		//----------------------Getters----------------------//
+		//
+		///////////////////////////////////////////////////////
+
 		/**
 		 * Sets a column as a primary key
 		 *
@@ -142,10 +173,6 @@ public class Column
 		}
 
 		////////////////////////////////////////////////////////
-		//
-		//----------------------Getters----------------------//
-		//
-		///////////////////////////////////////////////////////
 
 		/**
 		 * Gets the name of the column
@@ -165,6 +192,11 @@ public class Column
 		public String type()
 		{
 			return this.dataType;
+		}
+
+		public boolean isForeignKey()
+		{
+			return foreignKey;
 		}
 
 		/**
@@ -188,8 +220,6 @@ public class Column
 			return new String[]{this.referencesTable, this.referencesColumn};
 		}
 
-		////////////////////////////////////////////////////////
-
 		/**
 		 * Generates SQLite CREATE statement for the column.
 		 * Only to be called by its containing table
@@ -208,9 +238,23 @@ public class Column
 					+ this.dataType + " "
 					+ nullValue + " "
 					+ pkValue + " "
-					+ aiValue;
+					+ aiValue + " "
+					+ uniqueValue;
 
 			return createStatement;
+		}
+
+		public String foreignKeyStatement()
+		{
+			if (foreignKey)
+			{
+				return "FOREIGN KEY (" + name + ") "
+						+ "REFERENCES " + referencesTable
+						+ "(" + referencesColumn + ")";
+			} else
+			{
+				return "";
+			}
 		}
 
 	}

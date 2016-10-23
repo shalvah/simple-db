@@ -64,19 +64,36 @@ public class Table
 		String create()
 		{
 			String colsCreateStmnt = "";
+			ArrayList<String> foreignKeys = new ArrayList<String>();
 			for (Iterator<Column> iterator = columns.iterator(); iterator.hasNext(); )
 			{
 				Column column = iterator.next();
 				colsCreateStmnt += column.create();
-				if (iterator.hasNext())
+				if (column.isForeignKey())
 				{
+					foreignKeys.add(column.foreignKeyStatement());
+				}
+				if (iterator.hasNext())
+				{\
 					colsCreateStmnt += ", ";
+				}
+			}
+			String fkStatement = "";
+
+			for (Iterator<String> iterator = foreignKeys.iterator(); iterator.hasNext(); )
+			{
+				String stmnt = iterator.next();
+				fkStatement += stmnt;
+				if (iterator.hasNext())
+				{\
+					fkStatement += ", ";
 				}
 			}
 
 			String createStatement = "CREATE TABLE "
 					+ this.name + " ("
-					+ colsCreateStmnt + ");";
+					+ colsCreateStmnt + " "
+					+ fkStatement + ");";
 			return createStatement;
 		}
 
@@ -115,22 +132,6 @@ public class Table
 		public String name()
 		{
 			return name;
-		}
-
-		public String id()
-		{
-			for (Column c :
-					columns)
-			{
-				if (c.name().equalsIgnoreCase("_id"))
-				{
-					return c.name();
-				} else if (c.name().equalsIgnoreCase("id"))
-				{
-					return c.name();
-				}
-			}
-			throw new IllegalArgumentException("No id column");
 		}
 
 		public String[] getAllColumns()

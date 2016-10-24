@@ -147,6 +147,10 @@ public class Column
 			this.foreignKey = true;
 			this.referencesTable = referencesTable;
 			this.referencesColumn = referencesColumn;
+			if(referencesColumn.equalsIgnoreCase("_id"))
+			{
+				this.nullable=false;
+			}
 			return this;
 		}
 

@@ -18,10 +18,10 @@ import java.util.HashSet;
 
 public abstract class SimpleContentProvider extends ContentProvider
 	{
+		public static final String COLUMN_ID = "_id";
 		private static final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
 		public static String PROVIDER_NAME = "me.shalvah.dbhelper.dataprovider";
 		public static ArrayList<String> BASE_PATH = new ArrayList<>();
-
 		//for UriMatcher
 		public static ArrayList<Uri> CONTENT_URI = new ArrayList<>();
 		public static HashMap<String, Integer> uriMatcherStrings = new HashMap<String, Integer>();
@@ -32,10 +32,10 @@ public abstract class SimpleContentProvider extends ContentProvider
 		{
 			if (tableName.contains("/"))
 			{
-				tableName = tableName.substring(0, tableName.indexOf("/"));
+				String realName = tableName.substring(0, tableName.indexOf("/"));
 				String id = tableName.substring(tableName.indexOf("/") + 1);
 				return Uri.parse("content://" + PROVIDER_NAME + "/" +
-						tableName + "/" + id);
+						realName + "/" + id);
 			}
 			return Uri.parse("content://" + PROVIDER_NAME + "/" +
 					tableName);

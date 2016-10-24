@@ -17,8 +17,8 @@ public class TestSimpleContentProvider extends SimpleContentProvider
 		public static final String COLUMN_STUDENTS_AGE = "age";
 
 		public static final String TABLE_COURSES = "courses";
-		public static final String COLUMN_COURSES_TITLE = "title";
 		public static final String COLUMN_COURSES_CODE = "code";
+		public static final String COLUMN_COURSES_TITLE = "title";
 		public static final String COLUMN_COURSES_UNITS = "units";
 		public static final String COLUMN_COURSES_DESCRIPTION = "description";
 
@@ -31,8 +31,8 @@ public class TestSimpleContentProvider extends SimpleContentProvider
 			//create table and add columns
 			Table students = new Table(TABLE_STUDENTS, studentName, studentAge);
 
-			Column courseTitle = Column.Text(COLUMN_COURSES_TITLE);
 			Column courseCode = Column.Text(COLUMN_COURSES_CODE);
+			Column courseTitle = Column.Text(COLUMN_COURSES_TITLE);
 			Column courseUnits = Column.Integer(COLUMN_COURSES_UNITS);
 
 			Table courses = new Table(TABLE_COURSES, courseTitle, courseCode, courseUnits);

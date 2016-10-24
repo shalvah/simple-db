@@ -19,7 +19,6 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 
-
 public class CourseListActivity extends AppCompatActivity implements LoaderManager
 		.LoaderCallbacks<Cursor>
 	{
@@ -49,8 +48,13 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 			getLoaderManager().initLoader(0, null, this);
 
 			sca = new SimpleCursorAdapter(this, R.layout.course_list_item, null,
-					TestSimpleContentProvider.db.table(TestSimpleContentProvider.TABLE_COURSES).getAllColumns(), new int[]
-					{R.id._id, R.id.code, R.id.title, R.id.description}, 0);
+					new String[]{TestSimpleContentProvider.COLUMN_ID,
+							TestSimpleContentProvider.COLUMN_COURSES_CODE,
+							TestSimpleContentProvider.COLUMN_COURSES_TITLE,
+							TestSimpleContentProvider.COLUMN_COURSES_UNITS,
+							TestSimpleContentProvider.COLUMN_COURSES_DESCRIPTION
+					}, new int[]
+					{R.id._id, R.id.code, R.id.title, R.id.units, R.id.description}, 0);
 			lv.setAdapter(sca);
 
 		}
@@ -65,7 +69,8 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 					NavUtils.navigateUpFromSameTask(this);
 					return true;
 				case R.id.clear_all:
-					getContentResolver().delete(TestSimpleContentProvider.contentUri("courses"), null, null);
+					getContentResolver().delete(TestSimpleContentProvider.contentUri
+							(TestSimpleContentProvider.TABLE_COURSES), null, null);
 					return true;
 
 			}
@@ -76,10 +81,14 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 		@Override
 		public Loader<Cursor> onCreateLoader(int id, Bundle args)
 		{
-			String[] projection =
-					TestSimpleContentProvider.db.table("courses").getAllColumns();
-
-			return new CursorLoader(this, TestSimpleContentProvider.contentUri("courses"), projection, null, null,
+			String[] projection = new String[]{TestSimpleContentProvider.COLUMN_ID,
+					TestSimpleContentProvider.COLUMN_COURSES_CODE,
+					TestSimpleContentProvider.COLUMN_COURSES_TITLE,
+					TestSimpleContentProvider.COLUMN_COURSES_UNITS,
+					TestSimpleContentProvider.COLUMN_COURSES_DESCRIPTION};
+			return new CursorLoader(this, TestSimpleContentProvider.contentUri
+					(TestSimpleContentProvider.TABLE_COURSES), projection, null,
+					null,
 					null);
 		}
 
@@ -110,16 +119,17 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 			ContentValues values = new ContentValues();
 			try
 			{
-				values.put("title", data[0]);
-				values.put("code", data[1]);
-				values.put("units", data[2]);
-				values.put("description", data[3]);
+				values.put(TestSimpleContentProvider.COLUMN_COURSES_CODE, data[0]);
+				values.put(TestSimpleContentProvider.COLUMN_COURSES_TITLE, data[1]);
+				values.put(TestSimpleContentProvider.COLUMN_COURSES_UNITS, data[2]);
+				values.put(TestSimpleContentProvider.COLUMN_COURSES_DESCRIPTION, data[3]);
 
 			} catch (Exception e)
 			{
 				e.printStackTrace();
 			}
-			getContentResolver().insert(TestSimpleContentProvider.contentUri("courses"), values);
+			getContentResolver().insert(TestSimpleContentProvider.contentUri(TestSimpleContentProvider
+					.TABLE_COURSES), values);
 			((EditText) findViewById(R.id.inputCourseET)).setText("");
 		}
 
@@ -128,7 +138,8 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 			String text = ((EditText) findViewById(R.id.inputCourseET)).getText().toString();
 			if (text.equalsIgnoreCase(""))
 			{
-				getContentResolver().delete(TestSimpleContentProvider.contentUri("courses"), null, null);
+				getContentResolver().delete(TestSimpleContentProvider.contentUri
+						(TestSimpleContentProvider.TABLE_COURSES), null, null);
 			} else
 			{
 				getContentResolver().delete(TestSimpleContentProvider.contentUri

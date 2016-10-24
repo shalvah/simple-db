@@ -5,7 +5,6 @@ import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
@@ -132,9 +131,8 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 				getContentResolver().delete(TestSimpleContentProvider.contentUri("courses"), null, null);
 			} else
 			{
-				getContentResolver().delete(
-						Uri.withAppendedPath(TestSimpleContentProvider.contentUri
-								(TestSimpleContentProvider.TABLE_COURSES), "/" + text),
+				getContentResolver().delete(TestSimpleContentProvider.contentUri
+								(TestSimpleContentProvider.TABLE_COURSES + "/" + text),
 						null,
 						null);
 			}

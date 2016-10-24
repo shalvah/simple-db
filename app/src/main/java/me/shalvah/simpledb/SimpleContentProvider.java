@@ -30,6 +30,13 @@ public abstract class SimpleContentProvider extends ContentProvider
 
 		public static Uri contentUri(String tableName)
 		{
+			if (tableName.contains("/"))
+			{
+				tableName = tableName.substring(0, tableName.indexOf("/"));
+				String id = tableName.substring(tableName.indexOf("/") + 1);
+				return Uri.parse("content://" + PROVIDER_NAME + "/" +
+						tableName + "/" + id);
+			}
 			return Uri.parse("content://" + PROVIDER_NAME + "/" +
 					tableName);
 		}

@@ -1,4 +1,4 @@
-package me.shalvah.dbhelper;
+package me.shalvah.simpledb;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 
-public abstract class DataProvider extends ContentProvider
+public abstract class SimpleContentProvider extends ContentProvider
 	{
 		private static final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
 		public static String PROVIDER_NAME = "me.shalvah.dbhelper.dataprovider";

@@ -1,11 +1,11 @@
 package me.shalvah.dbtest;
 
-import me.shalvah.dbhelper.Column;
-import me.shalvah.dbhelper.DataProvider;
-import me.shalvah.dbhelper.Table;
+import me.shalvah.simpledb.Column;
+import me.shalvah.simpledb.SimpleContentProvider;
+import me.shalvah.simpledb.Table;
 
 
-public class TestDataProvider extends DataProvider
+public class TestDataProvider extends SimpleContentProvider
 	{
 
 		public static final String DB_NAME = "dbtest";

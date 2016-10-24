@@ -1,4 +1,4 @@
-package me.shalvah.dbhelper;
+package me.shalvah.simpledb;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -21,6 +21,7 @@ public class TestSimpleContentProvider extends SimpleContentProvider
 		public static final String COLUMN_COURSES_TITLE = "title";
 		public static final String COLUMN_COURSES_UNITS = "units";
 		public static final String COLUMN_COURSES_DESCRIPTION = "description";
+		public static final String COLUMN_COURSES_TOP_STUDENT = "top_student";
 
 		public void setup()
 		{
@@ -40,9 +41,12 @@ public class TestSimpleContentProvider extends SimpleContentProvider
 			//you can set additional properties
 			Column courseDesc = Column.Text(COLUMN_COURSES_DESCRIPTION)
 					.notNull();
+			Column courseTopStudent = Column.Text(COLUMN_COURSES_TOP_STUDENT)
+					.foreignKey(TABLE_STUDENTS, COLUMN_ID);
 
 			//add a column to the table
 			courses.add(courseDesc);
+			courses.add(courseTopStudent);
 
 			init(PROVIDER_NAME, DB_NAME, students, courses);
 		}

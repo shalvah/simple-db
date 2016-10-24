@@ -92,7 +92,7 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 				values.put(TestSimpleContentProvider.COLUMN_COURSES_TITLE, data[1]);
 				values.put(TestSimpleContentProvider.COLUMN_COURSES_UNITS, data[2]);
 				values.put(TestSimpleContentProvider.COLUMN_COURSES_DESCRIPTION, data[3]);
-
+				values.put(TestSimpleContentProvider.COLUMN_COURSES_TOP_STUDENT, data[4]);
 			} catch (Exception e)
 			{
 				e.printStackTrace();

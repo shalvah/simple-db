@@ -6,13 +6,9 @@ import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -60,25 +56,6 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 		}
 
 		@Override
-		public boolean onOptionsItemSelected(MenuItem item)
-		{
-			int id = item.getItemId();
-			switch (id)
-			{
-				case android.R.id.home:
-					NavUtils.navigateUpFromSameTask(this);
-					return true;
-				case R.id.clear_all:
-					getContentResolver().delete(TestSimpleContentProvider.contentUri
-							(TestSimpleContentProvider.TABLE_COURSES), null, null);
-					return true;
-
-			}
-			return super.onOptionsItemSelected(item);
-		}
-
-
-		@Override
 		public Loader<Cursor> onCreateLoader(int id, Bundle args)
 		{
 			String[] projection = new String[]{TestSimpleContentProvider.COLUMN_ID,
@@ -102,14 +79,6 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 		public void onLoaderReset(Loader<Cursor> loader)
 		{
 			sca.swapCursor(null);
-		}
-
-		public boolean onCreateOptionsMenu(Menu menu)
-		{
-
-			MenuInflater mi = getMenuInflater();
-			mi.inflate(R.menu.menu_list, menu);
-			return true;
 		}
 
 		public void add(View view)
@@ -146,6 +115,7 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 								(TestSimpleContentProvider.TABLE_COURSES + "/" + text),
 						null,
 						null);
+				((EditText) findViewById(R.id.inputCourseET)).setText("");
 			}
 		}
 	}

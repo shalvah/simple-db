@@ -25,6 +25,12 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+        <activity
+            android:name=".StudentListActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
         <provider android:name="me.shalvah.dbtest.TestSimpleContentProvider"
                   android:authorities="me.shalvah.dbtest.dprovider">
         </provider>

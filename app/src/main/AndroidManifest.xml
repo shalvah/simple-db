@@ -25,7 +25,7 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
-        <provider android:name="me.shalvah.dbtest.TestDataProvider"
+        <provider android:name="me.shalvah.dbtest.TestSimpleContentProvider"
                   android:authorities="me.shalvah.dbtest.dprovider">
         </provider>
     </application>

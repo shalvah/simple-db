@@ -5,7 +5,7 @@ import me.shalvah.simpledb.SimpleContentProvider;
 import me.shalvah.simpledb.Table;
 
 
-public class TestDataProvider extends SimpleContentProvider
+public class TestSimpleContentProvider extends SimpleContentProvider
 	{
 
 		public static final String DB_NAME = "dbtest";

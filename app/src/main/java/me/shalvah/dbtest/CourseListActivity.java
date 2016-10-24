@@ -50,7 +50,7 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 			getLoaderManager().initLoader(0, null, this);
 
 			sca = new SimpleCursorAdapter(this, R.layout.course_list_item, null,
-					TestDataProvider.db.table(TestDataProvider.TABLE_COURSES).getAllColumns(), new int[]
+					TestSimpleContentProvider.db.table(TestSimpleContentProvider.TABLE_COURSES).getAllColumns(), new int[]
 					{R.id._id, R.id.code, R.id.title, R.id.description}, 0);
 			lv.setAdapter(sca);
 
@@ -66,7 +66,7 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 					NavUtils.navigateUpFromSameTask(this);
 					return true;
 				case R.id.clear_all:
-					getContentResolver().delete(TestDataProvider.contentUri("courses"), null, null);
+					getContentResolver().delete(TestSimpleContentProvider.contentUri("courses"), null, null);
 					return true;
 
 			}
@@ -78,9 +78,9 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 		public Loader<Cursor> onCreateLoader(int id, Bundle args)
 		{
 			String[] projection =
-					TestDataProvider.db.table("courses").getAllColumns();
+					TestSimpleContentProvider.db.table("courses").getAllColumns();
 
-			return new CursorLoader(this, TestDataProvider.contentUri("courses"), projection, null, null,
+			return new CursorLoader(this, TestSimpleContentProvider.contentUri("courses"), projection, null, null,
 					null);
 		}
 
@@ -120,7 +120,7 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 			{
 				e.printStackTrace();
 			}
-			getContentResolver().insert(TestDataProvider.contentUri("courses"), values);
+			getContentResolver().insert(TestSimpleContentProvider.contentUri("courses"), values);
 			((EditText) findViewById(R.id.inputCourseET)).setText("");
 		}
 
@@ -129,12 +129,12 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 			String text = ((EditText) findViewById(R.id.inputCourseET)).getText().toString();
 			if (text.equalsIgnoreCase(""))
 			{
-				getContentResolver().delete(TestDataProvider.contentUri("courses"), null, null);
+				getContentResolver().delete(TestSimpleContentProvider.contentUri("courses"), null, null);
 			} else
 			{
 				getContentResolver().delete(
-						Uri.withAppendedPath(TestDataProvider.contentUri
-								(TestDataProvider.TABLE_COURSES), "/" + text),
+						Uri.withAppendedPath(TestSimpleContentProvider.contentUri
+								(TestSimpleContentProvider.TABLE_COURSES), "/" + text),
 						null,
 						null);
 			}

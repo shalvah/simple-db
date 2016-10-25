@@ -48,9 +48,10 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 							TestSimpleContentProvider.COLUMN_COURSES_CODE,
 							TestSimpleContentProvider.COLUMN_COURSES_TITLE,
 							TestSimpleContentProvider.COLUMN_COURSES_UNITS,
-							TestSimpleContentProvider.COLUMN_COURSES_DESCRIPTION
+							TestSimpleContentProvider.COLUMN_COURSES_DESCRIPTION,
+							TestSimpleContentProvider.COLUMN_COURSES_TOP_STUDENT
 					}, new int[]
-					{R.id._id, R.id.code, R.id.title, R.id.units, R.id.description}, 0);
+					{R.id._id, R.id.code, R.id.title, R.id.units, R.id.description, R.id.studentId}, 0);
 			lv.setAdapter(sca);
 
 		}
@@ -62,7 +63,8 @@ public class CourseListActivity extends AppCompatActivity implements LoaderManag
 					TestSimpleContentProvider.COLUMN_COURSES_CODE,
 					TestSimpleContentProvider.COLUMN_COURSES_TITLE,
 					TestSimpleContentProvider.COLUMN_COURSES_UNITS,
-					TestSimpleContentProvider.COLUMN_COURSES_DESCRIPTION};
+					TestSimpleContentProvider.COLUMN_COURSES_DESCRIPTION,
+					TestSimpleContentProvider.COLUMN_COURSES_TOP_STUDENT};
 			return new CursorLoader(this, TestSimpleContentProvider.contentUri
 					(TestSimpleContentProvider.TABLE_COURSES), projection, null,
 					null,

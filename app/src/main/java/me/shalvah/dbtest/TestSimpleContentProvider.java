@@ -22,6 +22,7 @@ public class TestSimpleContentProvider extends SimpleContentProvider
 		public static final String COLUMN_COURSES_UNITS = "units";
 		public static final String COLUMN_COURSES_DESCRIPTION = "description";
 		public static final String COLUMN_COURSES_TOP_STUDENT = "top_student";
+		private static final int DB_VERSION = 2;
 
 		public void setup()
 		{
@@ -48,6 +49,6 @@ public class TestSimpleContentProvider extends SimpleContentProvider
 			courses.add(courseDesc);
 			courses.add(courseTopStudent);
 
-			init(PROVIDER_NAME, DB_NAME, students, courses);
+			init(PROVIDER_NAME, DB_NAME, DB_VERSION, students, courses);
 		}
 	}

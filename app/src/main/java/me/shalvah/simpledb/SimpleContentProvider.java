@@ -41,12 +41,12 @@ public abstract class SimpleContentProvider extends ContentProvider
 					tableName);
 		}
 
-		public void init(String providerName, String dbName, Table... tables)
+		public void init(String providerName, String dbName, int dbVersion, Table... tables)
 		{
 			PROVIDER_NAME = providerName;
 
 			//init schema
-			db = new Schema(getContext(), dbName, tables);
+			db = new Schema(getContext(), dbName, dbVersion, tables);
 
 			//setup base paths and content uris
 			for (int i = 0; i < tables.length; i++)

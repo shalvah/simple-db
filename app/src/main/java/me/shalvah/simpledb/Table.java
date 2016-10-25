@@ -90,6 +90,11 @@ public class Table
 				}
 			}
 
+			if (!fkStatement.equals(""))
+			{
+				colsCreateStmnt+=",";
+			}
+
 			return "CREATE TABLE "
 					+ name + " ("
 					+ colsCreateStmnt + " "

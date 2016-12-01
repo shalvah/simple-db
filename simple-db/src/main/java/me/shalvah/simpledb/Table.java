@@ -115,6 +115,7 @@ public class Table
 		/**
 		 * Add a new column to the table
 		 *
+		 * @param col The column
 		 * @return the table
 		 */
 		public Table add(Column col)
@@ -138,6 +139,11 @@ public class Table
 			return name;
 		}
 
+		/**
+		 * Gets the names of all this table's columns
+		 *
+		 * @return array containing the names of the table's columns
+		 */
 		public String[] getAllColumns()
 		{
 			ArrayList<String> names = new ArrayList<String>();

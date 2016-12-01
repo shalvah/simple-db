@@ -11,7 +11,7 @@ import java.util.LinkedHashMap;
 /**
  * Models the database concept while extending the SQLiteOpenHelper
  *
- * @author Shalvah Adebayo <shalvah@shalvah.me>
+ * @author Shalvah Adebayo shalvah@shalvah.me
  */
 public class Schema extends SQLiteOpenHelper
 	{
@@ -19,6 +19,7 @@ public class Schema extends SQLiteOpenHelper
 		 * The tables in the database
 		 */
 		private LinkedHashMap<String, Table> tables;
+
 		/**
 		 * List of drop statements
 		 */
@@ -29,6 +30,7 @@ public class Schema extends SQLiteOpenHelper
 		 *
 		 * @param context The application context
 		 * @param dbName  The database name
+		 * @param dbVersion The database version
 		 * @param dbTables array of tales to be added
 		 */
 		public Schema(Context context, String dbName, int dbVersion, Table... dbTables)
@@ -74,6 +76,13 @@ public class Schema extends SQLiteOpenHelper
 			onCreate(db);
 		}
 
+		/**
+		 * Gets a table, given a name
+		 *
+		 * @param tableName the name of the table
+		 * @return a Table object of that table name if it exists in the schema; otherwise an
+		 * Exception is thrown
+		 */
 		public Table table(String tableName)
 		{
 			if (!this.tables.containsKey(tableName))

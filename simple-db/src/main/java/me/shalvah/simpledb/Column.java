@@ -81,26 +81,56 @@ public class Column
 		//
 		///////////////////////////////////////////////////////
 
+		/**
+		 * Create a column of type INTEGER
+		 *
+		 * @param name the column name
+		 * @return the column
+		 */
 		public static Column Integer(String name)
 		{
 			return new Column(name, "INTEGER");
 		}
 
+		/**
+		 * Create a column of type TEXT
+		 *
+		 * @param name the column name
+		 * @return the column
+		 */
 		public static Column Text(String name)
 		{
 			return new Column(name, "TEXT");
 		}
 
+		/**
+		 * Create a column of type BLOB
+		 *
+		 * @param name the column name
+		 * @return the column
+		 */
 		public static Column Blob(String name)
 		{
 			return new Column(name, "BLOB");
 		}
 
+		/**
+		 * Create a column of type REAL
+		 *
+		 * @param name the column name
+		 * @return the column
+		 */
 		public static Column Real(String name)
 		{
 			return new Column(name, "REAL");
 		}
 
+		/**
+		 * Create a column of type NuLL
+		 *
+		 * @param name the column name
+		 * @return the column
+		 */
 		public static Column Null(String name)
 		{
 			return new Column(name, "NULL");
@@ -168,6 +198,7 @@ public class Column
 		/**
 		 * Sets the table to which the column belongs
 		 *
+		 * @param tableName The name of the table
 		 * @return the column
 		 */
 		public Column belongsTo(String tableName)
@@ -198,6 +229,11 @@ public class Column
 			return this.dataType;
 		}
 
+		/**
+		 * If the column is a foreign key index
+		 *
+		 * @return true if the column is a foreign key, false otherwise
+		 */
 		public boolean isForeignKey()
 		{
 			return foreignKey;
@@ -248,6 +284,12 @@ public class Column
 			return createStatement;
 		}
 
+		/**
+		 * Generates the foreign key portion of the create statement of this column
+		 *
+		 * @return "FOREIGN KEY(columnName) REFERENCES tableName(columnName)" if the column is a
+		 * foreign key; otherwise an empty string
+		 */
 		public String foreignKeyStatement()
 		{
 			if (foreignKey)

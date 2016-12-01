@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/dbtest.iml" filepath="$PROJECT_DIR$/dbtest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/simple-db/simple-db.iml" filepath="$PROJECT_DIR$/simple-db/simple-db.iml" />
     </modules>
   </component>
 </project>

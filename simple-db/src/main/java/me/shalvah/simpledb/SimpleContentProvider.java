@@ -15,19 +15,59 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 
-
+/**
+ * ContentProvider with methods and variables implemented
+ */
 public abstract class SimpleContentProvider extends ContentProvider
 	{
+		/**
+		 * The _id column present in each table
+		 */
 		public static final String COLUMN_ID = "_id";
+
+		/**
+		 * Uri Matcher used to match content uris
+		 */
 		private static final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
-		public static String PROVIDER_NAME = "me.shalvah.dbhelper.dataprovider";
+
+		/**
+		 * The provider name
+		 */
+		public static String PROVIDER_NAME = "me.shalvah.simpledb.dataprovider";
+
+		/**
+		 * Base paths for tables in the schema
+		 */
 		public static ArrayList<String> BASE_PATH = new ArrayList<>();
-		//for UriMatcher
+
+		/**
+		 * Content uris for tables in the schema
+		 */
 		public static ArrayList<Uri> CONTENT_URI = new ArrayList<>();
+
+		/**
+		 * Integer constants used to match uris for different tables in the schema and their
+		 * corresponding "_ID" address
+		 */
 		public static HashMap<String, Integer> uriMatcherStrings = new HashMap<String, Integer>();
+
+		/**
+		 * The database schema model
+		 */
 		public static Schema db;
+
+		/**
+		 * The actual SQLite database
+		 */
 		private static SQLiteDatabase sqldb;
 
+		/**
+		 * Gets the content uri generated for a given string.
+		 *
+		 * @param tableName either the name of the table ("items") or the table name followed by a
+		 *                    slash, then an id ("items/3")
+		 * @return the uri for the reource
+		 */
 		public static Uri contentUri(String tableName)
 		{
 			if (tableName.contains("/"))
@@ -41,6 +81,15 @@ public abstract class SimpleContentProvider extends ContentProvider
 					tableName);
 		}
 
+		/**
+		 * Creates the database schema and sets up base paths, content uris and uri matching
+		 *
+		 * @param providerName the package name of the content provider
+		 * @param dbName the desired name of the database
+		 * @param dbVersion the version number of the database. Increment this whenever you make
+		 *                    changes to your schema (change tables or columns)
+		 * @param tables the tables to be created in the database
+		 */
 		public void init(String providerName, String dbName, int dbVersion, Table... tables)
 		{
 			PROVIDER_NAME = providerName;
@@ -56,7 +105,6 @@ public abstract class SimpleContentProvider extends ContentProvider
 				CONTENT_URI.add(Uri.parse("content://" + PROVIDER_NAME + "/" + BASE_PATH.get(i)));
 				uriMatcherStrings.put(t.name(), (int) Math.pow(10, i));
 				uriMatcherStrings.put(t.name() + "_ID", ((int) Math.pow(10, i)) * 2);
-
 			}
 
 			//setup uri matcher
@@ -77,6 +125,9 @@ public abstract class SimpleContentProvider extends ContentProvider
 			return (sqldb != null);
 		}
 
+		/**
+		 * Define a schema for your database in terms of tables and columns
+		 */
 		abstract public void setup();
 
 		@Nullable
@@ -177,8 +228,6 @@ public abstract class SimpleContentProvider extends ContentProvider
 		}
 
 
-		//checks if requested columns exist in the requested table
-
 		@Override
 		public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs)
 		{
@@ -215,6 +264,12 @@ public abstract class SimpleContentProvider extends ContentProvider
 			throw new IllegalArgumentException("Unknown URI: " + uri);
 		}
 
+		/**
+		 * Ensures the columns to which access has been requested exist in the table
+		 *
+		 * @param projection the requested columns
+		 * @param uriType the type of the uri requested
+		 */
 		private void checkColumns(String[] projection, int uriType)
 		{
 			HashSet<String> requestedColumns;

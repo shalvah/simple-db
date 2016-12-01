@@ -1,1 +1,1 @@
-include ':simple-db'
+include ':app'

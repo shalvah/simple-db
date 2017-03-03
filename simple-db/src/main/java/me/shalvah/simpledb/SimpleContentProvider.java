@@ -21,19 +21,29 @@ import java.util.HashSet;
 public abstract class SimpleContentProvider extends ContentProvider
 	{
 		/**
-		 * The _id column present in each table
+		 * The tables in the db
 		 */
-		public static final String COLUMN_ID = "_id";
+		public static Table[] tables;
+
+		/**
+		 * The provider name
+		 */
+		protected static String PROVIDER_NAME = "me.shalvah.simpledb.dataprovider";
+
+		/**
+		 * The provider name
+		 */
+		protected static String DB_NAME = "mydb";
+
+		/**
+		 * The provider name
+		 */
+		protected static int DB_VERSION = 1;
 
 		/**
 		 * Uri Matcher used to match content uris
 		 */
 		private static final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
-
-		/**
-		 * The provider name
-		 */
-		public static String PROVIDER_NAME = "me.shalvah.simpledb.dataprovider";
 
 		/**
 		 * Base paths for tables in the schema
@@ -92,8 +102,6 @@ public abstract class SimpleContentProvider extends ContentProvider
 		 */
 		public void init(String providerName, String dbName, int dbVersion, Table... tables)
 		{
-			PROVIDER_NAME = providerName;
-
 			//init schema
 			db = new Schema(getContext(), dbName, dbVersion, tables);
 
@@ -121,6 +129,7 @@ public abstract class SimpleContentProvider extends ContentProvider
 		{
 			//all columns and tables must be created before this is run!
 			setup();
+			init(PROVIDER_NAME, DB_NAME, DB_VERSION, tables);
 			sqldb = db.create();
 			return (sqldb != null);
 		}

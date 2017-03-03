@@ -136,6 +136,18 @@ public class Column
 			return new Column(name, "NULL");
 		}
 
+		/**
+		 * Create an id column
+		 *
+		 * @param name the column name
+		 * @return the column
+		 */
+		public static Column id(String name)
+
+		{
+			return new Column(name, "INTEGER").primaryKey().autoIncrement();
+		}
+
 		////////////////////////////////////////////////////////
 		//
 		//----------------------Getters----------------------//
@@ -151,6 +163,16 @@ public class Column
 		{
 			this.primaryKey = true;
 			this.nullable = false;
+			return this;
+		}
+
+		/**
+		 * Sets a column ro auto-increment
+		 *
+		 * @return the column
+		 */
+		public Column autoIncrement()
+		{
 			this.autoIncrement = true;
 			return this;
 		}

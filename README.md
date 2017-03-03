@@ -1,9 +1,16 @@
-Simpledb is an Android library that simplifies the process of working with SQLite databases. It allows you to get your app up and running with a functional SQLite database without you worrying about the internals. Now all you need to do is define your schema, and the library handles the rest!
+<h1  align="center" >SimpleDB</h1>
 
-Simpledb is designed for apps which have relatively simple databse needs.
+<p align="center" ><a href="https://bintray.com/shalvah/maven/simple-db/_latestVersion" ><img src="https://api.bintray.com/packages/shalvah/maven/simple-db/images/download.svg" alt="Download"></a></p>
+
+SimpleDB is an Android library that makes working with SQLite databases reaaaally simple. The aim is to get your app up and running with a functional SQLite database within minutes (true) without you worrying about the internals, so you can focus on building a great app.
+
+You don't need to craft complex SQL statements anymore. All you need to do now is define your schema, and SimpleDB handles the rest!
+
 # Setup
 * Step 0: Add the dependency to your app's `build.gradle`
-```compile 'me.shalvah.simpledb:simple-db:0.5.0'```
+```
+compile 'me.shalvah.simpledb:simple-db:0.5.0'
+```
 
 * Step 1: Create a class extending the `SimpleContentProvider`. This is your app's
 ContentProvider. Define your provider, database, and database version in a static block:
@@ -24,7 +31,8 @@ public class MySimpleContentProvider extends SimpleContentProvider
 
 * Step 2: Implement the `setup()` function in your SimpleContentProvider. This is where you define your database schema.
 
-```public void setup()
+```
+public void setup()
 {
  //create columns
  Column producerId = Column.id("_id");
@@ -48,7 +56,7 @@ Note that if a table has a column which is a foreign key to another, make sure y
 * Step 3: You're good to go! Use the class you created as your ContentPovider.
 
 # Quickstart
-## Creating colums
+## Creating columns
 ```
 Column.integer(columnName);
 Column.text(columnName);
@@ -78,9 +86,10 @@ Table t=new Table(tableName, cols);```
 ```
 
 ## CRUD
-```//insert a new item
-* getContentResolver().insert(TestSimpleContentProvider.contentUri(tableName), values);
-* 
+```
+//insert a new item
+getContentResolver().insert(TestSimpleContentProvider.contentUri(tableName), values);
+
 //delete all items
 getContentResolver().delete(MySimpleContentProvider.contentUri("tableName"), null, null);
 
@@ -105,7 +114,8 @@ Loading data:
 ```
 
 Callbacks:
-```@Override
+```
+@Override
         public Loader<Cursor> onCreateLoader(int id, Bundle args)
         {
             String[] projection = new String[]{"id", "name", "type", "price"};
@@ -117,9 +127,6 @@ Callbacks:
 ```
 
 A simple test app using the library can be found [here] (https://github.com/Shalvah/dbtest).
-
-# More complex databases
-If your app's database needs are more complex, you may override other methods in the `SimpleContentProvider` class as needed (for instance, if you need to define a custom `sortOrder`. Future updates may provide a simpler interface for you to do this.) 
 
 # Features
 * Foreign key support. Simpledb also automatically sets an fk column to be on-null if referencing an "_id" column; otherwise, you'll have to do that yourself or risk getting an SQL error

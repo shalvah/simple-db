@@ -79,7 +79,8 @@ col.foreignKey(referencesTableName, referencesColumnName);
 Again, these methods all return Column objects, so you can chain them to set additional properties
 
 ## Creating a Table
-```Table t=new Table(tableName, col1, col2, col3, ...);
+```
+Table t=new Table(tableName, col1, col2, col3, ...);
 
 Column[] cols=new Column[] {col1, col2, col3, ...};
 Table t=new Table(tableName, cols);```

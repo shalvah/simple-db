@@ -87,7 +87,7 @@ public class Column
 		 * @param name the column name
 		 * @return the column
 		 */
-		public static Column Integer(String name)
+		public static Column integer(String name)
 		{
 			return new Column(name, "INTEGER");
 		}
@@ -98,7 +98,7 @@ public class Column
 		 * @param name the column name
 		 * @return the column
 		 */
-		public static Column Text(String name)
+		public static Column text(String name)
 		{
 			return new Column(name, "TEXT");
 		}
@@ -109,7 +109,7 @@ public class Column
 		 * @param name the column name
 		 * @return the column
 		 */
-		public static Column Blob(String name)
+		public static Column blob(String name)
 		{
 			return new Column(name, "BLOB");
 		}
@@ -120,7 +120,7 @@ public class Column
 		 * @param name the column name
 		 * @return the column
 		 */
-		public static Column Real(String name)
+		public static Column real(String name)
 		{
 			return new Column(name, "REAL");
 		}
@@ -131,7 +131,7 @@ public class Column
 		 * @param name the column name
 		 * @return the column
 		 */
-		public static Column Null(String name)
+		public static Column null(String name)
 		{
 			return new Column(name, "NULL");
 		}

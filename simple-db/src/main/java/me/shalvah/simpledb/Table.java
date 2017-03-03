@@ -21,7 +21,6 @@ public class Table
 
 		/**
 		 * Create a new table and add columns to it
-		 * Automatically adds "_id" column if it was not included
 		 *
 		 * @param tableName Name of the table
 		 * @param cols      array of Columns to be created in the table
@@ -32,24 +31,6 @@ public class Table
 			this.name = tableName;
 			columns = new ArrayList<Column>();
 
-			boolean addId = true;
-			for (Column c :
-					cols)
-			{
-				if (c.toString().equalsIgnoreCase("_id") || c.toString().equalsIgnoreCase("id"))
-				{
-					addId = false;
-					break;
-				}
-			}
-
-			//if "_id" column doesn't exist, create it
-			if (addId)
-			{
-				Column idColumn = new Column("_id", "integer")
-						.primaryKey();
-				columns.add(idColumn);
-			}
 
 			//add all other columns
 			Collections.addAll(this.columns, cols);
